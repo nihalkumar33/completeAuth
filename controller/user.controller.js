@@ -1,5 +1,9 @@
 import User from "../model/User.model.js"
 import crypto from "crypto"
+import nodemailer from "nodemailer"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 // yaha pe main ab apna saara ka business logic rakhunga
 // pehele syntax:
@@ -47,8 +51,35 @@ const registerUser = async (req, res) => {
 
         await user.save()
 
-    } catch (error) {
+        // send email
+        const transporter = nodemailer.createTransport({
+            host: process.env.MAILTRAP_HOST,
+            port: process.env.MAILTRAP_PORT,
+            secure: false, // true for port 465, false for other ports
+            auth: {
+              user: process.env.MAILTRAP_USERNAME,
+              pass: process.env.MAILTRAP_PASSWORD,
+            },
+          });
+
+        const mailOption = ({
+            from: process.env.MAILTRAP_HOST, // sender address
+            to: user.email, // list of receivers
+            subject: "verify email",
+            text: `Please click on following link: ${process.env.BASE_URL}api/v1/users/verify/${token}`
+        });
+
+        console.log(`YOO: ${user.email}`)
+
+        await transporter.sendMail(mailOption);
         
+        res.status(200).json({
+            message: "User registered successfully"
+        })
+
+
+    } catch (error) {
+        console.log(error.message)
     }
 
 }
