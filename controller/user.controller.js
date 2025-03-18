@@ -6,4 +6,4 @@ const registerUser = (req, res) => {
     res.send("Registered User YOO") // it will be viewed on localhost
 }
 
-export { registerUser } 
+export { registerUser }
