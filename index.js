@@ -9,7 +9,6 @@ import userRoutes from "./routes/user.routes.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
-console.log(process.env.PORT)
 
 app.use(express.json())
 
@@ -19,15 +18,8 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Autorisation']
 }))
 
-app.get("/", (req, res) => {
-    // iska matlab main eak get request karunga / ke upar aur main jo response yha se bhejunga woh mera / pe dikhega
-    res.send("Hello I am here")
-    console.log(`Request: ${req}`)
-    
-})
-
+// Connect to database
 db();
-
 
 app.use("/api/v1/users/", userRoutes)
 

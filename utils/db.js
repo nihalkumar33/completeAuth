@@ -10,7 +10,9 @@ console.log(url)
 // export a function that connects to DB
 
 const db = () => {
-    mongoose.connect(url)
+   // this is returing me a promise
+    mongoose
+     .connect(url)
      .then(() => {
         console.log("Connected to mongoDB");
      })

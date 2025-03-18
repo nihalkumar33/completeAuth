@@ -7,6 +7,6 @@ import { registerUser } from "../controller/user.controller.js"
 
 const router = express.Router() // iska matlab dekhna kya hai
 
-router.get("/register", registerUser)
+router.post("/register", registerUser)
 
 export default router
